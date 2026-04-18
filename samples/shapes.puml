@@ -1,0 +1,43 @@
+@startuml
+
+class Shape {
+  - color : string
+  - x : float
+  - y : float
+  + draw() : void
+  + getArea() : float
+  + getPerimeter() : float
+  + getColor() : string
+}
+
+class Circle {
+  - radius : float
+  + draw() : void
+  + getArea() : float
+  + getPerimeter() : float
+  + getRadius() : float
+}
+
+class Rectangle {
+  - width : float
+  - height : float
+  + draw() : void
+  + getArea() : float
+  + getPerimeter() : float
+  + getWidth() : float
+}
+
+class Triangle {
+  - base : float
+  - height : float
+  - side : float
+  + draw() : void
+  + getArea() : float
+  + getPerimeter() : float
+}
+
+Shape <|-- Circle
+Shape <|-- Rectangle
+Shape <|-- Triangle
+
+@enduml

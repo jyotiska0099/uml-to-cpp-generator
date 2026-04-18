@@ -1,0 +1,30 @@
+@startuml
+
+class Vehicle {
+  - speed : int
+  - fuel : float
+  - brand : string
+  + accelerate() : void
+  + brake() : void
+  + getFuel() : float
+  + getBrand() : string
+}
+
+class Car {
+  - doors : int
+  - isConvertible : bool
+  + honk() : void
+  + getDoors() : int
+}
+
+class Truck {
+  - payloadCapacity : float
+  - hasTrailer : bool
+  + loadCargo() : void
+  + getPayload() : float
+}
+
+Vehicle <|-- Car
+Vehicle <|-- Truck
+
+@enduml
