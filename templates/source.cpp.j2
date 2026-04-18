@@ -1,0 +1,26 @@
+{# templates/source.cpp.j2 #}
+{# Generates a C++ source file (.cpp) from a parsed ClassDef object #}
+#include "{{ cls.name }}.h"
+
+{% for method in cls.methods %}
+{{ method.return_type }} {{ cls.name }}::{{ method.name }}({{ method.parameters | join(", ") }}) {
+{% if method.return_type == "void" %}
+    // TODO: implement {{ method.name }}
+{% elif method.return_type == "bool" %}
+    // TODO: implement {{ method.name }}
+    return false;
+{% elif method.return_type == "int" %}
+    // TODO: implement {{ method.name }}
+    return 0;
+{% elif method.return_type == "float" %}
+    // TODO: implement {{ method.name }}
+    return 0.0f;
+{% elif method.return_type == "string" %}
+    // TODO: implement {{ method.name }}
+    return "";
+{% else %}
+    // TODO: implement {{ method.name }}
+{% endif %}
+}
+
+{% endfor %}

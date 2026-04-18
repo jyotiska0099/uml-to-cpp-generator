@@ -1,0 +1,50 @@
+{# templates/header.h.j2 #}
+{# Generates a C++ header file (.h) from a parsed ClassDef object #}
+#pragma once
+
+{% if cls.parent %}
+#include "{{ cls.parent }}.h"
+{% endif %}
+{% for assoc in cls.associations %}
+#include "{{ assoc }}.h"
+{% endfor %}
+
+{% set has_string = namespace(found=false) %}
+{% for attr in cls.attributes %}
+  {% if attr.type == "string" %}{% set has_string.found = true %}{% endif %}
+{% endfor %}
+{% for method in cls.methods %}
+  {% if method.return_type == "string" %}{% set has_string.found = true %}{% endif %}
+{% endfor %}
+{% if has_string.found %}
+#include <string>
+using std::string;
+
+{% endif %}
+/**
+ * @class {{ cls.name }}
+ * @brief Auto-generated skeleton from PlantUML diagram.
+ */
+class {{ cls.name }}{% if cls.parent %} : public {{ cls.parent }}{% endif %} {
+
+public:
+{% for method in cls.methods if method.visibility == "public" %}
+    {{ method.return_type }} {{ method.name }}({{ method.parameters | join(", ") }});
+{% endfor %}
+
+{% if cls.attributes | selectattr("visibility", "equalto", "protected") | list %}
+protected:
+{% for attr in cls.attributes if attr.visibility == "protected" %}
+    {{ attr.type }} {{ attr.name }};
+{% endfor %}
+{% endif %}
+
+private:
+{% for attr in cls.attributes if attr.visibility == "private" %}
+    {{ attr.type }} {{ attr.name }};
+{% endfor %}
+{% for method in cls.methods if method.visibility == "private" %}
+    {{ method.return_type }} {{ method.name }}({{ method.parameters | join(", ") }});
+{% endfor %}
+
+};
